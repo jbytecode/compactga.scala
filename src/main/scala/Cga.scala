@@ -1,4 +1,6 @@
-object CGA:
+package org.expr
+
+object Cga:
 
   type FunctionType = (List[Int]) => Double
   type Candidate = List[Int]
@@ -41,6 +43,20 @@ object CGA:
     if cost1 < cost2 then updateby(p, parent1, parent2, mut)
     else updateby(p, parent2, parent1, mut)
 
+  /** Compact Genetic Algorithm optimizer.
+  *
+  * @param f
+  *   Function to be minimized. The function always takes a List of either zeros
+  *   and ones and returns the objective value in type of double.
+  * @param n
+  *   Length of the input List a.k.a chromosome length
+  * @param mut
+  *   Rate of mutation. Smaller the mut slower the convergency. 0.001 is okay in
+  *   many cases.
+  * @return
+  *   The return value in type of List[Int] which assumed the objective function
+  *   is minimized for.
+  */
   def cga(f: FunctionType, n: Int, mut: Double): Candidate =
     var probvector = initial_prob_vector(n)
     while !(converged(probvector, mut)) do {
@@ -49,11 +65,11 @@ object CGA:
     sample(probvector)
 
     /*
-    Sample use: (see unit tests)
-        def f(x: List[Int]) : Double = x.sum * 1.0
+      Sample use: (see unit tests)
+          def f(x: List[Int]) : Double = x.sum * 1.0
 
 
-        def main(args: Array[String]): Unit =
-            val result = CGA.cga(f, 20, 0.001)
-            println(result)
+          def main(args: Array[String]): Unit =
+              val result = CGA.cga(f, 20, 0.001)
+              println(result)
      */
