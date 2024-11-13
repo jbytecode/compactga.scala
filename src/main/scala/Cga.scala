@@ -2,11 +2,11 @@ package org.expr
 
 object Cga:
 
-  type FunctionType = (List[Int]) => Double
-  type Candidate = List[Int]
-  type ProbabilityVector = List[Double]
+  type FunctionType = (Vector[Int]) => Double
+  type Candidate = Vector[Int]
+  type ProbabilityVector = Vector[Double]
 
-  def initial_prob_vector(n: Int): ProbabilityVector = List.fill(n)(0.5)
+  def initial_prob_vector(n: Int): ProbabilityVector = Vector.fill(n)(0.5)
 
   def sample(p: ProbabilityVector): Candidate =
     p.map(x => if Math.random() < x then 1 else 0)
@@ -35,7 +35,7 @@ object Cga:
   def converged(p: ProbabilityVector, mut: Double): Boolean =
     p.count(x => (x - mut <= 0.0) || (x + mut >= 1.0)) == p.length
 
-  def singlestep(f: FunctionType, p: List[Double], mut: Double): List[Double] =
+  def singlestep(f: FunctionType, p: Vector[Double], mut: Double): Vector[Double] =
     val parent1 = sample(p)
     val parent2 = sample(p)
     val cost1 = f(parent1)
