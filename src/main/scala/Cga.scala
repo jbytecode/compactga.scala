@@ -36,10 +36,8 @@ object Cga:
     p.count(x => (x - mut <= 0.0) || (x + mut >= 1.0)) == p.length
 
   def singlestep(f: FunctionType, p: Vector[Double], mut: Double): Vector[Double] =
-    val parent1 = sample(p)
-    val parent2 = sample(p)
-    val cost1 = f(parent1)
-    val cost2 = f(parent2)
+    val (parent1, parent2) = (sample(p), sample(p))
+    val (cost1, cost2) = (f(parent1), f(parent2))
     if cost1 < cost2 then updateby(p, parent1, parent2, mut)
     else updateby(p, parent2, parent1, mut)
 
