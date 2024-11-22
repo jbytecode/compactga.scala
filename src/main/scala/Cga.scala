@@ -39,7 +39,8 @@ object Cga:
     val (parent1, parent2) = (sample(p), sample(p))
     val (cost1, cost2) = (f(parent1), f(parent2))
     if cost1 < cost2 then updateby(p, parent1, parent2, mut)
-    else updateby(p, parent2, parent1, mut)
+    else if cost2 < cost1 then  updateby(p, parent2, parent1, mut)
+    else p
 
   /** Compact Genetic Algorithm optimizer.
   *
